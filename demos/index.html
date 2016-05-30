@@ -64,90 +64,238 @@
             <!--<div class="hero-unit">-->
                 <h2>使用指南</h2>
                 <p>
-                    該文檔對外使用，原接口(v1/v2)仍然可用，但不再維護
+                    该文档是PP云对外开放的，基于标准HTTP RESTFULL协议
                 </p>
             <!--</div>-->
 
-            <h2>直播節目搜索</h2>
-            <h3>接口說明</h3>
-            <table class="table table-striped table-bordered table-condensed">
+            <h2>视频列表接口</h2>
+            <h3>接口定义</h3>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>获取视频列表</td>
+                </tr>
                 <tr>
                     <td>接口地址</td>
                     <td><a href="#">http://xx.com/v3/api/list</a></td>
                 </tr>
                 <tr>
-                    <td>請求方式</td>
-                    <td>HTTP POST</td>
+                    <td>接口协议</td>
+                    <td>HTTP GET</td>
                 </tr>
                 <tr>
                     <td>HTTP HEADER</td>
-                    <td>appication/json</td>
+                    <td>Content-Type=application/json</td>
                 </tr>
             </table>
-            <h3>輸入參數</h3>
-            <table class="table table-bordered">
+            <h3>请求参数</h3>
+            <table class="table table-striped table-bordered">
                 <tr>
-                    <th>參數名</th>
-                    <th>參數描述</th>
-                    <th>參數類型</th>
-                    <th>最大長度</th>
-                    <th>是否必填</th>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>最大长度</th>
+                    <th>可空</th>
                 </tr>
                 <tr>
-                    <td>channelwebid</td>
+                    <td>channel_webid</td>
                     <td class="optionName" title="channelwebid"
-                        data-content="channelid/userid/id 加密串">頻道webid</td>
+                        data-content="channelid/userid/id 加密串">视频webid</td>
                     <td>String</td>
                     <td>100</td>
                     <td>是</td>
                 </tr>
                 <tr>
-                    <td>apitk</td>
-                    <td class="optionName" title="apitk"
-                        data-content="接口加密校驗字符串">頻道webid</td>
+                    <td>key</td>
+                    <td class="optionName" title="key"
+                        data-content="key">搜索关键字</td>
                     <td>String</td>
-                    <td>30</td>
+                    <td>50</td>
                     <td>是</td>
                 </tr>
+                <tr>
+                    <td>category_id</td>
+                    <td class="optionName" title="分类Id"
+                        data-content="key">分类Id</td>
+                    <td>Integer</td>
+                    <td>10</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>page_num</td>
+                    <td class="optionName" title="当前页"
+                        data-content="当前页">当前页</td>
+                    <td>Integer</td>
+                    <td>5</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>page_size</td>
+                    <td class="optionName" title="每页记录数"
+                        data-content="每页记录数">每页记录数</td>
+                    <td>Integer</td>
+                    <td>5</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>String</td>
+                    <td>40</td>
+                    <td>否</td>
+                </tr>
             </table>
-            <h3>請求示例</h3>
+            <h3>请求示例</h3>
             <p>
-                URL: http://xx.com/v3/api/list
-                <br/>
-                Body: {"a":"xx"}
+                <a href="http://svc.pptvyun.com/svc/v3/api/channel/channellist?username=ppcloud-api@pptv.com&apitk=9698E2AADD67533696E56A6C3491DA06&pagesize=2">
+                    http://svc.pptvyun.com/svc/v3/api/channel/channellist?username=ppcloud-api@pptv.com&apitk=9698E2AADD67533696E56A6C3491DA06&pagesize=2
+                </a>
             </p>
-            <h3>輸出參數</h3>
-            <table class="table table-striped table-bordered table-condensed">
+            <h3>响应内容</h3>
+            <table class="table table-striped table-bordered">
                 <tr>
-                    <th>參數名</th>
-                    <th>參數描述</th>
-                    <th>參數類型</th>
-                    <th>最大長度</th>
-                    <th>是否必填</th>
+                    <th>名称</th>
+                    <th>数据类型</th>
+                    <th>说明</th>
                 </tr>
                 <tr>
-                    <td>channelwebid</td>
-                    <td class="optionName" title="channelwebid"
-                        data-content="channelid/userid/id 加密串">頻道webid</td>
-                    <td>String</td>
-                    <td>100</td>
-                    <td>是</td>
+                    <td>id</td>
+                    <td class="optionName" title="id"
+                        data-content="id">id</td>
+                    <td>Integer</td>
                 </tr>
                 <tr>
-                    <td>apitk</td>
-                    <td class="optionName" title="apitk"
-                        data-content="接口加密校驗字符串">頻道webid</td>
+                    <td>category_id</td>
+                    <td class="optionName" title="category_id"
+                        data-content="category_id">分类id</td>
+                    <td>Integer</td>
+                </tr>
+                <tr>
+                    <td>channel_name</td>
+                    <td class="optionName" title="channel_name"
+                        data-content="channel_name">视频名称</td>
                     <td>String</td>
-                    <td>30</td>
-                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>channel_summary</td>
+                    <td class="optionName" title="channel_summary"
+                        data-content="channel_summary">视频描述</td>
+                    <td>String</td>
+                </tr>
+                <tr>
+                    <td>cover_image</td>
+                    <td class="optionName" title="cover_image"
+                        data-content="cover_image">封面图片</td>
+                    <td>String</td>
                 </tr>
             </table>
             <h3>返回示例</h3>
 <pre class="prettyprint">
     {
-        "data":null,
-        "err":404,
-        "msg":"getUserInfo failure: user was not found: undefined  "
+      "data": [
+        {
+          "id": 1476021,
+          "categoryId": 29743,
+          "channelName": "videoTest",
+          "channelSummary": "summaryTest",
+          "coverImage": "",
+          "fId": 1522476,
+          "isPlay": 1,
+          "channelId": 158412095,
+          "channelType": 1,
+          "createTime": 1463571624000,
+          "channelWebId": "0a2dnq6ZoaKcoquL4K2dnqfhoaSjn6aXoQ",
+          "length": 10990,
+          "ppfeature": "168344442_143797ceff994e618f89c13551b4e49637d0f7d6",
+          "userName": "ppcloud-api@pptv.com",
+          "transcodeStatus": 0,
+          "liveStatus": null,
+          "duration": 0,
+          "realDuration": null,
+          "screenshot": null,
+          "liveStartTime": 1463571624718,
+          "liveEndTime": null,
+          "updateTime": 1463571624000,
+          "shareAuth": null,
+          "nexttk": "0a2dnayYpaedn6iZoKCcj-aioaWd5aeZp6acm6c",
+          "subContactName": "xuxin",
+          "vv": null,
+          "isChild": 0,
+          "nickName": null,
+          "online": null,
+          "sourceUserName": null,
+          "timeLimit": null,
+          "timePreset": null,
+          "sourceUser": 0,
+          "epg_category_id": null,
+          "info_status": null,
+          "epgCategoryName": null,
+          "seriesId": 0,
+          "seriesName": null,
+          "toibo": 0,
+          "live2vodStatus": null,
+          "toIboReviewStatus": 0,
+          "toIboReviewOperator": null,
+          "roomId": null,
+          "reviewFailedReason": null,
+          "siteName": "idontknow",
+          "displayable": 0,
+          "pptvsPlayStr": "pptvs://4NzN4tvXr%2BTl2dui4ODi2NqL09jN1%2BTK3M%2FVzbOWpaigmqiVqaU%3D"
+        },
+        {
+          "id": 510625,
+          "categoryId": 328,
+          "channelName": "动物世界",
+          "channelSummary": null,
+          "coverImage": "",
+          "fId": 2105672,
+          "isPlay": 1,
+          "channelId": 156642814,
+          "channelType": 1,
+          "createTime": 1436166593000,
+          "channelWebId": "0a2dnqybpKKkmqqL4K2dnqfhpaGcn6ia",
+          "length": 7773939,
+          "ppfeature": "7773939_2059736ee1c4a13ff15ea80eeb1e926e1c482d85",
+          "userName": "ppcloud-api@pptv.com",
+          "transcodeStatus": 200,
+          "liveStatus": null,
+          "duration": 30,
+          "realDuration": null,
+          "screenshot": "/e1/1f/e11f5d05d0def544dec4ed3156642814/1.jpg",
+          "liveStartTime": 1436166593761,
+          "liveEndTime": null,
+          "updateTime": 1458530226000,
+          "shareAuth": null,
+          "nexttk": "0a2dnamboaainq-YoKCcj-aioaWd5auWoKaeng",
+          "subContactName": "xuxin",
+          "vv": null,
+          "isChild": 0,
+          "nickName": null,
+          "online": null,
+          "sourceUserName": null,
+          "timeLimit": null,
+          "timePreset": null,
+          "sourceUser": 0,
+          "epg_category_id": null,
+          "info_status": null,
+          "epgCategoryName": null,
+          "seriesId": 0,
+          "seriesName": null,
+          "toibo": 0,
+          "live2vodStatus": 0,
+          "toIboReviewStatus": 0,
+          "toIboReviewOperator": null,
+          "roomId": null,
+          "reviewFailedReason": null,
+          "siteName": "idontknow",
+          "displayable": 0,
+          "pptvsPlayStr": "pptvs://4NzN4tvXr%2BTl2dui4ODi2NqL09jN1%2BTK3M%2FVzbOWpaainaidoaQ%3D"
+        }
+      ],
+      "err": 0,
+      "msg": null,
+      "totalnum": 74
     }
 </pre>
         </div><!--/span-->
