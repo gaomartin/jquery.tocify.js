@@ -2,9 +2,923 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PP云对外接口文档</title>
+    <title>PP云API文档</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PP云API文档">
+    <meta name="author" content="martingao">
+
+    <!-- Le styles -->
+    <link href="styles/bootstrap.css" rel="stylesheet">
+    <link href="http://apps.bdimg.com/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
+    <link href="../src/stylesheets/jquery.tocify.css" rel="stylesheet">
+    <link href="styles/prettify.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <!--<link rel="shortcut icon" href="../assets/ico/favicon.ico">-->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .headerDoc {
+            color: #005580;
+        }
+
+        @media (max-width: 767px) {
+            #toc {
+                position: relative;
+                width: 100%;
+                margin: 0px 0px 20px 0px;
+            }
+        }
+
+        .container-fluid * {
+            font-family: "Alright Sans LP", "Avenir Next", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi MicroHei", sans-serif;
+        }
+        *, p, a {
+            font-family: "Alright Sans LP", "Avenir Next", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi MicroHei", sans-serif;
+            color: #666e80;
+        }
+
+        .container-fluid h2, h3, h4 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div id="toc">
+                <!--<p>PP云API文档</p>-->
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+            <!--<div class="hero-unit">-->
+            <h2>使用指南</h2>
+            <p>
+                该文档是包含点播和直播API功能，基于标准HTTP RESTFULL协议实现
+                <br/>
+            </p>
+            <p>
+                相关说明
+            </p>
+            <ul>
+                <li>字符编码：UTF-8</li>
+                <li>接口参数：GET和JSON两种方式</li>
+                <li>参数类型：int 代表整数类型；string 代表字符串类型，如果后面有括号，括号中的数字代表该参数的最大长度；array表示数组类型</li>
+            </ul>
+            <!--</div>-->
 
+            <h2>apitk定义</h2>
+            <p>所有接口需要通过输入的apitk参数做合法性验证，具体如下：</p>
+            <p>apitk定义: apitk = MD5(key + url)</p>
+            <p>apitk按照约定规则和算法由调用接口前预先生成，接口服务器接受请求后按照同样算法进行比较，比较结果相同则允许访问。</p>
+            <p>其中key为用户key,登录PP云后台获取，如下操作：</p>
+            <p>
+                <img src="images/apitkget.png">
+            </p>
+            <p>url为请求的url地址</p>
+            <p>比如新增分类接口，假设username对应的key为“key1”，访问的url为</p>
+            <p>http://svc.pptvyun.com/svc/v1/api/category</p>
+            <p>则加密值为：</p>
+            <p>key1http://svc.pptvyun.com/svc/v1/api/category</p>
+            <p>这个串进行md5加密后的md5码</p>
+
+            <h2>点播</h2>
+            <h3>视频上传</h3>
+            <h4>有插上传</h4>
+            <p>需要用户安装上传插件</p>
+            <ul>
+                <li>插件仅支持32位浏览器</li>
+                <li>插件仅提供上传功能,页面部分需自行开发</li>
+                <li>安装插件后,请提示用户重启浏览器</li>
+            </ul>
+            <h4>无插上传</h4>
+            <p>无插上传功能请参考单独文档 <a href="#" target="_blank">无插上传文档</a></p>
+            <h4>创建视频</h4>
+            <h5>接口定义</h5>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>创建视频信息</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/svc/v1/api/channel/upload">http://svc.pptvyun.com/svc/v1/api/channel/upload</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP POST</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h5>请求参数</h5>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td class="optionName" title="视频名称"
+                        data-content="视频名称">视频名称(需要URLEncode)</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>summary</td>
+                    <td class="optionName" title="视频简介"
+                        data-content="视频简介">视频简介(需要URLEncode)</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>coverimg</td>
+                    <td class="optionName" title="封面图url地址"
+                        data-content="封面图url地址">封面图url地址(需要URLEncode)</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>length</td>
+                    <td class="optionName" title="视频文件大小"
+                        data-content="视频文件大小">视频文件大小，单位：字节</td>
+                    <td>int</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>ppfeature</td>
+                    <td class="optionName" title="视频特征码"
+                        data-content="视频特征码">视频特征码</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td class="optionName" title="用户名"
+                        data-content="用户名">PP云用户名</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+            </table>
+            <h5>请求示例</h5>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/v1/api/channel/upload">
+                    http://svc.pptvyun.com/svc/v1/api/channel/upload
+                </a>
+            </p>
+            <p>
+                Body:
+            </p>
+            <pre class="prettyprint"><code class="language-" data-lang="">
+    {
+        "username": "ppcloud-api@pptv.com",
+        "apitk": "40DBE2897822767DC41DD8491802EDBB",
+        "categoryid": "444",
+        "name": "videoTest",
+        "summary": "summaryTest",
+        "coverimg": "",
+        "length": "10990",
+        "ppfeature": "168344442_143797ceff994e618f89c13551b4e49637d0f7d6"
+    }
+            </code></pre>
+            <h5>响应内容</h5>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td class="optionName" title="PP云用户名"
+                        data-content="PP云用户名">PP云用户名</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>categoryid</td>
+                    <td class="optionName" title="分类id"
+                        data-content="分类id">分类id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td class="optionName" title="视频名称"
+                        data-content="视频名称">视频名称</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>summary</td>
+                    <td class="optionName" title="视频描述"
+                        data-content="视频描述">视频描述</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>coverimg</td>
+                    <td class="optionName" title="封面图片"
+                        data-content="封面图片">封面图片</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>length</td>
+                    <td class="optionName" title="视频文件大小"
+                        data-content="视频文件大小">视频文件大小，单位：字节</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>ppfeature</td>
+                    <td class="optionName" title="视频特征码"
+                        data-content="视频特征码">视频特征码</td>
+                    <td>string</td>
+                </tr>
+            </table>
+            <h5>返回示例</h5>
+<pre class="prettyprint">
+    {
+      "data": {
+        "id": 1476021,
+        "categoryId": 29743,
+        "userId": 151,
+        "subUserId": 151,
+        "channelName": "videoTest",
+        "channelSummary": "summaryTest",
+        "coverImage": "",
+        "fId": 1522476,
+        "isPlay": 1,
+        "channelId": 158412095,
+        "channelType": 1,
+        "createTime": 1463571624718,
+        "channelWebId": "0a2dnq6ZoaKcoquL4K2dnqfhoaSjn6aXoQ",
+        "length": 10990,
+        "ppfeature": "168344442_143797ceff994e618f89c13551b4e49637d0f7d6",
+        "userName": null,
+        "transcodeStatus": 0,
+        "liveStatus": null,
+        "duration": 0,
+        "screenshot": null,
+        "vod_status": 0,
+        "file_status": 0,
+        "extend": {
+          "username": "ppcloud-api@pptv.com",
+          "title": "videoTest",
+          "cata": "科教"
+        },
+        "epg_category_id": null,
+        "info_status": null,
+        "pptvsPlayStr": "pptvs://4NzN4tvXr%2BTl2dui4ODi2NqL09jN1%2BTK3M%2FVzbOWpaigmqiVqaU%3D"
+      },
+      "err": 0,
+      "msg": "addUserChannel success"
+    }
+</pre>
+
+            <h3>修改视频</h3>
+            <h4>接口定义</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>编辑视频信息</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/svc/v2/api/channel/{channelwebid}">http://svc.pptvyun.com/svc/v2/api/channel/{channelwebid}</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP POST</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h4>请求参数</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>channelname</td>
+                    <td class="optionName" title="视频名称"
+                        data-content="视频名称">视频名称(需要URLEncode)</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>channelsummary</td>
+                    <td class="optionName" title="视频简介"
+                        data-content="视频简介">视频简介(需要URLEncode)</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>coverimage</td>
+                    <td class="optionName" title="封面图url地址"
+                        data-content="封面图url地址">封面图url地址(需要URLEncode)</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td class="optionName" title="用户名"
+                        data-content="用户名">PP云用户名</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+            </table>
+            <h4>请求示例</h4>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/v1/api/channel/0a2dnquVpKKhoK2L4K2log">
+                    http://svc.pptvyun.com/svc/v1/api/channel/0a2dnquVpKKhoK2L4K2log
+                </a>
+            </p>
+            <p>
+                Body:
+            </p>
+            <pre class="prettyprint">
+    {
+        "username": "ppcloud-api@pptv.com",
+        "apitk": "75D2152D2499C55B87FEEC3860F56FEA",
+        "channelname": "modifyvideo",
+        "categoryid": "444",
+        "channelsummary": "modifysummary"
+    }
+            </pre>
+            <h4>响应内容</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td class="optionName" title="PP云用户名"
+                        data-content="PP云用户名">PP云用户名</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>categoryid</td>
+                    <td class="optionName" title="分类id"
+                        data-content="分类id">分类id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td class="optionName" title="视频名称"
+                        data-content="视频名称">视频名称</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>summary</td>
+                    <td class="optionName" title="视频描述"
+                        data-content="视频描述">视频描述</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>coverimg</td>
+                    <td class="optionName" title="封面图片"
+                        data-content="封面图片">封面图片</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>length</td>
+                    <td class="optionName" title="视频文件大小"
+                        data-content="视频文件大小">视频文件大小，单位：字节</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>ppfeature</td>
+                    <td class="optionName" title="视频特征码"
+                        data-content="视频特征码">视频特征码</td>
+                    <td>string</td>
+                </tr>
+            </table>
+            <h4>返回示例</h4>
+<pre class="prettyprint">
+    {
+      "data": {
+        "id": null,
+        "categoryId": 29743,
+        "userId": 151,
+        "channelName": "modifyvideo",
+        "channelSummary": "modifysummary",
+        "coverImage": null,
+        "fId": null,
+        "isPlay": null,
+        "channelId": 158412095,
+        "channelType": null,
+        "createTime": null,
+        "channelWebId": "0a2dnq6ZoaKcoquL4K2dnqc",
+        "length": null,
+        "ppfeature": null,
+        "userName": null,
+        "transcodeStatus": null,
+        "liveStatus": null,
+        "duration": null,
+        "realDuration": null,
+        "screenshot": null,
+        "liveStartTime": null,
+        "liveEndTime": null,
+        "updateTime": null,
+        "isDeleted": null,
+        "shareAuth": null,
+        "nexttk": null,
+        "subContactName": null,
+        "passportName": null,
+        "vv": null,
+        "isChild": null,
+        "nickName": null,
+        "liveStatusLong": null,
+        "online": null,
+        "sourceUserName": null,
+        "watchProtocol": null,
+        "timeLimit": null,
+        "timePreset": null,
+        "sourceUser": null,
+        "epg_category_id": null,
+        "info_status": null,
+        "epgCategoryName": null,
+        "seriesId": null,
+        "seriesName": null,
+        "toibo": 0,
+        "live2vodStatus": null,
+        "toIboReviewStatus": null,
+        "toIboReviewOperator": null,
+        "roomId": null,
+        "reviewFailedReason": null,
+        "siteName": null,
+        "displayable": null,
+        "pptvsPlayStr": "pptvs://4NzN4tvXr%2BTl2dui4ODi2NqL09jN1%2BTK3M%2FVzbOWpaigmqiVqaU%3D"
+      },
+      "err": 0,
+      "msg": "udpateUserChannel success"
+    }
+</pre>
+
+            <h3>删除视频</h3>
+            <h4>接口定义</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>删除视频</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/svc/v2/api/channel/delete">http://svc.pptvyun.com/svc/v2/api/channel/delete</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP DELETE</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h4>请求参数</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>channelwebids</td>
+                    <td class="optionName" title="视频加密串"
+                        data-content="视频加密串">视频加密串,以逗号分隔</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td class="optionName" title="用户名"
+                        data-content="用户名">PP云用户名</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+            </table>
+            <h4>请求示例</h4>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/v2/api/channel/delete">
+                    http://svc.pptvyun.com/svc/v2/api/channel/delete
+                </a>
+            </p>
+            <p>
+                Body:
+            </p>
+            <pre class="prettyprint">
+    {
+        "username": "ppcloud-api@pptv.com",
+        "apitk": "9B053935C0ED1FD043D510894771EC08",
+        "channelids": "0a2dnquVpKKhoK2L4K2log,0a2dnquVpKKhoK2L4K2log"
+    }
+            </pre>
+            <h4>响应内容</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td class="optionName" title="视频id"
+                        data-content="视频id">视频id字符串(逗号分隔)</td>
+                    <td>string</td>
+                </tr>
+            </table>
+            <h4>返回示例</h4>
+<pre class="prettyprint">
+    {
+      "data": "9305,6318",
+      "err": 0,
+      "msg": "deleteUserChannel success"
+    }
+</pre>
+
+            <h3>视频列表</h3>
+            <h4>接口定义</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>视频列表</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/svc/v1/api/channel/channellist">http://svc.pptvyun.com/svc/v1/api/channel/channellist</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP GET</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h4>请求参数</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>channelwebid</td>
+                    <td class="optionName" title="视频加密串"
+                        data-content="视频加密串">视频加密串</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>key</td>
+                    <td class="optionName" title="搜索关键字"
+                        data-content="搜索关键字">搜索关键字</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>pagenum</td>
+                    <td class="optionName" title="当前页"
+                        data-content="当前页">当前页</td>
+                    <td>int</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>pagesize</td>
+                    <td class="optionName" title="每页记录数"
+                        data-content="每页记录数">每页记录数</td>
+                    <td>int</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td class="optionName" title="用户名"
+                        data-content="用户名">PP云用户名</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>createtimestart</td>
+                    <td class="optionName" title="创建时间起始"
+                        data-content="创建时间起始">创建时间起始</td>
+                    <td>int</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>createtimeend</td>
+                    <td class="optionName" title="创建时间截止"
+                        data-content="创建时间截止">创建时间截止</td>
+                    <td>int</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td>apitk</td>
+                    <td class="optionName" title="apitk"
+                        data-content="apitk">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+            </table>
+            <h4>请求示例</h4>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/v1/api/channel/channellist?username=ppcloud-api@pptv.com&apitk=9698E2AADD67533696E56A6C3491DA06">
+                    http://svc.pptvyun.com/svc/v1/api/channel/channellist?username=ppcloud-api@pptv.com&apitk=9698E2AADD67533696E56A6C3491DA06
+                </a>
+            </p>
+            <h4>响应内容</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                </tr>
+                <tr>
+                    <td>id</td>
+                    <td class="optionName" title="视频id"
+                        data-content="视频id">视频id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>categoryId</td>
+                    <td class="optionName" title="分类id"
+                        data-content="分类id">分类id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>channelName</td>
+                    <td class="optionName" title="视频名称"
+                        data-content="视频名称">视频名称</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>channelSummary</td>
+                    <td class="optionName" title="视频简介"
+                        data-content="视频简介">视频简介</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>coverImage</td>
+                    <td class="optionName" title="封面图url"
+                        data-content="封面图url">封面图url</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>fId</td>
+                    <td class="optionName" title="文件id"
+                        data-content="文件id">文件id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>isPlay</td>
+                    <td class="optionName" title="是否播放"
+                        data-content="是否播放 1：开启 0：关闭">是否播放</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>channelId</td>
+                    <td class="optionName" title="频道id"
+                        data-content="频道id">频道id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>channelType</td>
+                    <td class="optionName" title="视频类型"
+                        data-content="视频类型 1：点播 2：直播">视频类型</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>createTime</td>
+                    <td class="optionName" title="创建时间"
+                        data-content="创建时间">创建时间</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>channelWebId</td>
+                    <td class="optionName" title="视频webid"
+                        data-content="视频webid">视频webid</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>pptvsPlayStr</td>
+                    <td class="optionName" title="播放串"
+                        data-content="播放串">播放串</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>userName</td>
+                    <td class="optionName" title="用户名称"
+                        data-content="用户名称">用户名称</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>transcodeStatus</td>
+                    <td class="optionName" title="转码状态"
+                        data-content="转码状态">转码状态</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>liveStatus</td>
+                    <td class="optionName" title="直播状态"
+                        data-content="直播状态">直播状态</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>duration</td>
+                    <td class="optionName" title="视频时长"
+                        data-content="视频时长,单位:秒">视频时长</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>screenshot</td>
+                    <td class="optionName" title="视频截图url"
+                        data-content="视频截图url">视频截图url</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>liveStartTime</td>
+                    <td class="optionName" title="直播开始时间"
+                        data-content="直播开始时间">直播开始时间</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>liveEndTime</td>
+                    <td class="optionName" title="直播结束时间"
+                        data-content="直播结束时间">直播结束时间</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>updateTime</td>
+                    <td class="optionName" title="最后修改时间"
+                        data-content="最后修改时间">最后修改时间</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>subUserName</td>
+                    <td class="optionName" title="子帐号名称"
+                        data-content="子帐号名称">子帐号名称</td>
+                    <td>string</td>
+                </tr>
+            </table>
+            <h4>返回示例</h4>
+<pre class="prettyprint">
+    {
+      "data": [
+        {
+          "id": 1476021,
+          "categoryId": 29743,
+          "channelName": "videoTest",
+          "channelSummary": "summaryTest",
+          "coverImage": "",
+          "fId": 1522476,
+          "isPlay": 1,
+          "channelId": 158412095,
+          "channelType": 1,
+          "createTime": 1463571624000,
+          "channelWebId": "0a2dnq6ZoaKcoquL4K2dnqfhoaSjn6aXoQ",
+          "length": 10990,
+          "ppfeature": "168344442_143797ceff994e618f89c13551b4e49637d0f7d6",
+          "userName": "ppcloud-api@pptv.com",
+          "transcodeStatus": 0,
+          "liveStatus": null,
+          "duration": 0,
+          "realDuration": null,
+          "screenshot": null,
+          "liveStartTime": 1463571624718,
+          "liveEndTime": null,
+          "updateTime": 1463571624000,
+          "shareAuth": null,
+          "nexttk": "0a2dnayYpaedn6iZoKCcj-aioaWd5aeZp6acm6c",
+          "subContactName": "xuxin",
+          "vv": null,
+          "isChild": 0,
+          "nickName": null,
+          "online": null,
+          "sourceUserName": null,
+          "timeLimit": null,
+          "timePreset": null,
+          "sourceUser": 0,
+          "epg_category_id": null,
+          "info_status": null,
+          "epgCategoryName": null,
+          "seriesId": 0,
+          "seriesName": null,
+          "toibo": 0,
+          "live2vodStatus": null,
+          "toIboReviewStatus": 0,
+          "toIboReviewOperator": null,
+          "roomId": null,
+          "reviewFailedReason": null,
+          "siteName": "idontknow",
+          "displayable": 0,
+          "pptvsPlayStr": "pptvs://4NzN4tvXr%2BTl2dui4ODi2NqL09jN1%2BTK3M%2FVzbOWpaigmqiVqaU%3D"
+        }
+      ],
+      "err": 0,
+      "msg": null,
+      "totalnum": 74
+    }
+</pre>
+
+            <h3>视频屏蔽</h3>
+            <h3>视频播放</h3>
+            <h3>视频状态回调</h3>
+
+
+            <h2>直播</h2>
+            <h3>创建直播</h3>
+            <h3>更新直播信息</h3>
+            <h3>获取推流地址</h3>
+            <h3>获取流状态</h3>
+            <h3>流状态控制</h3>
+            <h3>直播流状态回调</h3>
+        </div><!--/span-->
+    </div><!--/row-->
+
+</div><!--/.fluid-container-->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../libs/jquery/jquery-1.8.3.min.js"></script>
+<script src="../libs/jqueryui/jquery-ui-1.9.1.custom.min.js"></script>
+<script src="javascripts/bootstrap.js"></script>
+<script src="../src/javascripts/jquery.tocify.js"></script>
+<script src="javascripts/prettify.js"></script>
+<script>
+    $(function () {
+
+        var toc = $("#toc").tocify({
+            selectors: "h2,h3,h4,h5"
+        }).data("toc-tocify");
+
+        prettyPrint();
+        $(".optionName").popover({trigger: "hover"});
+
+    });
+</script>
 </body>
 </html>
