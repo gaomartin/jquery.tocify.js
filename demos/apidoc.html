@@ -1592,9 +1592,630 @@
 </pre>
 
             <h3>获取推流地址</h3>
+            <h4>接口定义</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>获取推流地址</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/ft/v2/program/{channelwebid}/publish">http://svc.pptvyun.com/svc/ft/v2/program/{channelwebid}/publish</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP GET</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h4>请求参数</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>channelwebid</td>
+                    <td class="optionName" title="说明"
+                        data-content="视频webid">视频webid</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>_apitk</td>
+                    <td class="optionName" title="说明"
+                        data-content="API Token">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>coded</td>
+                    <td class="optionName" title="说明"
+                        data-content="true:返回结果中path字段的值为/publish，false:返回结果中path字段的值为/push">true或者false,默认为false</td>
+                    <td>string</td>
+                    <td>否</td>
+                </tr>
+            </table>
+            <h4>请求示例</h4>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/ft/v2/program/0a2dnquVoKClnK2L4K0/publish?_apitk=D9B0630DD36FBC04ECAA61E5FBDEA4C9&coded=false">
+                    http://svc.pptvyun.com/svc/ft/v2/program/0a2dnquVoKClnK2L4K0/publish?_apitk=D9B0630DD36FBC04ECAA61E5FBDEA4C9&coded=false
+                </a>
+            </p>
+            <h4>响应内容</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td class="optionName" title="说明"
+                        data-content="流名称">流名称</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>path</td>
+                    <td class="optionName" title="说明"
+                        data-content="推流方式(push,publish)">推流方式(push,publish)</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>protocol</td>
+                    <td class="optionName" title="说明"
+                        data-content="协议">协议</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>args</td>
+                    <td class="optionName" title="说明"
+                        data-content="参数">参数</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>channelid</td>
+                    <td class="optionName" title="说明"
+                        data-content="频道id">频道id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>now</td>
+                    <td class="optionName" title="说明"
+                        data-content="当前时间戳">当前时间戳</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>addr</td>
+                    <td class="optionName" title="说明"
+                        data-content="收流地址">收流地址</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>isTurnOn</td>
+                    <td class="optionName" title="说明"
+                        data-content="logo是否显示">logo是否显示</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>url</td>
+                    <td class="optionName" title="说明"
+                        data-content="logo链接">logo链接</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>align</td>
+                    <td class="optionName" title="说明"
+                        data-content="logo位置">logo位置</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>diaphaneity</td>
+                    <td class="optionName" title="说明"
+                        data-content="透明度">透明度</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>ax</td>
+                    <td class="optionName" title="说明"
+                        data-content="ax">ax</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>ay</td>
+                    <td class="optionName" title="说明"
+                        data-content="ay">ay</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>width</td>
+                    <td class="optionName" title="说明"
+                        data-content="宽度">宽度</td>
+                    <td>string</td>
+                </tr>
+            </table>
+            <h4>返回示例</h4>
+<pre class="prettyprint">
+    {
+        "data": {
+            "name": "538a9889317942939b0d81fd5a192e27?ts=1417167315&token=fa97500e2920a8a2d55748ae8846080b",
+            "path": "/push",
+            "protocol": "rtmp",
+            "args": [],
+            "channelid": 151700607,
+            "now": 1417080915969,
+            "addr": ["118.123.212.91:1936","61.155.219.50:1936"],
+            "logo": null
+        },
+        "err": 0,
+        "msg": null
+    }
+</pre>
+
             <h3>获取流状态</h3>
+            <h4>接口定义</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>获取直播流状态</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/ft/v2/program/{channelwebid}/livestatus">http://svc.pptvyun.com/svc/ft/v2/program/{channelwebid}/livestatus</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP GET</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h4>请求参数</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>channelwebid</td>
+                    <td class="optionName" title="说明"
+                        data-content="视频webid">视频webid</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>_apitk</td>
+                    <td class="optionName" title="说明"
+                        data-content="API Token">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+            </table>
+            <h4>请求示例</h4>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/ft/v2/program/0a2dnquVoKClnK2L4K0/livestatus?_apitk=CDA6169B4B0E5B92AE564E7661D4A3DD">
+                    http://svc.pptvyun.com/svc/ft/v2/program/0a2dnquVoKClnK2L4K0/livestatus?_apitk=CDA6169B4B0E5B92AE564E7661D4A3DD
+                </a>
+            </p>
+            <h4>响应内容</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                </tr>
+                <tr>
+                    <td>delay</td>
+                    <td class="optionName" title="说明"
+                        data-content="下次请求时延">下次请求时延</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>channelid</td>
+                    <td class="optionName" title="说明"
+                        data-content="频道id">频道id</td>
+                    <td>int</td>
+                </tr>
+                <tr>
+                    <td>livestatus</td>
+                    <td class="optionName" title="说明"
+                        data-content="直播状态">直播状态</td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td>streamstatus</td>
+                    <td class="optionName" title="说明"
+                        data-content="直播流状态">直播流状态</td>
+                    <td>string</td>
+                </tr>
+            </table>
+            <h4>返回示例</h4>
+<pre class="prettyprint">
+    {
+        "data": {
+            "delay": 300,
+            "channelid": 151700607,
+            "livestatus": "notstart",
+            "streamstatus": "error"
+        },
+        "err": 0,
+        "msg": null
+    }
+</pre>
+
             <h3>流状态控制</h3>
+            <h4>接口定义</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>接口描述</td>
+                    <td>直播控制</td>
+                </tr>
+                <tr>
+                    <td>接口地址</td>
+                    <td><a target="_blank" href="http://svc.pptvyun.com/ft/v2/program/{channelwebid}/livestatus">http://svc.pptvyun.com/svc/ft/v2/program/{channelwebid}/livestatus</a></td>
+                </tr>
+                <tr>
+                    <td>接口协议</td>
+                    <td>HTTP POST</td>
+                </tr>
+                <tr>
+                    <td>HTTP HEADER</td>
+                    <td>Content-Type=application/json</td>
+                </tr>
+            </table>
+            <h4>请求参数</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>数据类型</th>
+                    <th>必填</th>
+                </tr>
+                <tr>
+                    <td>channelwebid</td>
+                    <td class="optionName" title="说明"
+                        data-content="视频webid">视频webid</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+                <tr>
+                    <td>_apitk</td>
+                    <td class="optionName" title="说明"
+                        data-content="API Token">API Token</td>
+                    <td>string</td>
+                    <td>是</td>
+                </tr>
+            </table>
+            <h4>请求示例</h4>
+            <p>
+                URL:
+                <a target="_blank" href="http://svc.pptvyun.com/svc/ft/v2/program/0a2dnquVoKClnK2L4K0/livestatus?_apitk=CDA6169B4B0E5B92AE564E7661D4A3DD">
+                    http://svc.pptvyun.com/svc/ft/v2/program/0a2dnquVoKClnK2L4K0/livestatus?_apitk=CDA6169B4B0E5B92AE564E7661D4A3DD
+                </a>
+            </p>
+            <p>
+                Body:
+            </p>
+            <pre class="prettyprint">
+    {
+        "livestatus": "init"
+    }
+            </pre>
+            <h4>返回示例</h4>
+<pre class="prettyprint">
+    {
+        "err": 0,
+        "kind": "pplp#success"
+    }
+</pre>
+
             <h3>直播流状态回调</h3>
+            <p>请参考 点播-视频状态回调</p>
+
+            <h2>其他</h2>
+            <h3>视频转码状态表</h3>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>code</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td class="optionName" title="说明"
+                        data-content="创建（公有云创建文件）">创建（公有云创建文件）</td>
+                </tr>
+                <tr>
+                    <td>99</td>
+                    <td class="optionName" title="说明"
+                        data-content="重传中">重传中</td>
+                </tr>
+                <tr>
+                    <td>101</td>
+                    <td class="optionName" title="说明"
+                        data-content="待压制">待压制</td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td class="optionName" title="说明"
+                        data-content="压制中">压制中</td>
+                </tr>
+                <tr>
+                    <td>106</td>
+                    <td class="optionName" title="说明"
+                        data-content="待review">待review</td>
+                </tr>
+                <tr>
+                    <td>107</td>
+                    <td class="optionName" title="说明"
+                        data-content="reviewing">reviewing</td>
+                </tr>
+                <tr>
+                    <td>111</td>
+                    <td class="optionName" title="说明"
+                        data-content="待分发">待分发</td>
+                </tr>
+                <tr>
+                    <td>112</td>
+                    <td class="optionName" title="说明"
+                        data-content="分发中">分发中</td>
+                </tr>
+                <tr>
+                    <td>116</td>
+                    <td class="optionName" title="说明"
+                        data-content="待回调">待回调</td>
+                </tr>
+                <tr>
+                    <td>150-179</td>
+                    <td class="optionName" title="说明"
+                        data-content="压制失败">压制失败</td>
+                </tr>
+                <tr>
+                    <td>180</td>
+                    <td class="optionName" title="说明"
+                        data-content="review不通过">review不通过</td>
+                </tr>
+                <tr>
+                    <td>190</td>
+                    <td class="optionName" title="说明"
+                        data-content="分发失败">分发失败</td>
+                </tr>
+                <tr>
+                    <td>191</td>
+                    <td class="optionName" title="说明"
+                        data-content="回调失败">回调失败</td>
+                </tr>
+                <tr>
+                    <td>200</td>
+                    <td class="optionName" title="说明"
+                        data-content="可播放">可播放</td>
+                </tr>
+                <tr>
+                    <td>210</td>
+                    <td class="optionName" title="说明"
+                        data-content="入epg中">入epg中</td>
+                </tr>
+                <tr>
+                    <td>211</td>
+                    <td class="optionName" title="说明"
+                        data-content="入epg失败">入epg失败</td>
+                </tr>
+                <tr>
+                    <td>212</td>
+                    <td class="optionName" title="说明"
+                        data-content="入epg成功">入epg成功</td>
+                </tr>
+            </table>
+
+            <h3>直播状态表</h3>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>状态</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td>notstart</td>
+                    <td class="optionName" title="说明"
+                        data-content="未开始">未开始</td>
+                </tr>
+                <tr>
+                    <td>init</td>
+                    <td class="optionName" title="说明"
+                        data-content="初始化">初始化</td>
+                </tr>
+                <tr>
+                    <td>preview</td>
+                    <td class="optionName" title="说明"
+                        data-content="预览">预览</td>
+                </tr>
+                <tr>
+                    <td>living</td>
+                    <td class="optionName" title="说明"
+                        data-content="直播中">直播中</td>
+                </tr>
+                <tr>
+                    <td>stopped</td>
+                    <td class="optionName" title="说明"
+                        data-content="已结束">已结束</td>
+                </tr>
+                <tr>
+                    <td>pause</td>
+                    <td class="optionName" title="说明"
+                        data-content="暂停">暂停</td>
+                </tr>
+                <tr>
+                    <td>broken</td>
+                    <td class="optionName" title="说明"
+                        data-content="断流">断流</td>
+                </tr>
+                <tr>
+                    <td>deleted</td>
+                    <td class="optionName" title="说明"
+                        data-content="已删除">已删除</td>
+                </tr>
+                <tr>
+                    <td>sysdeleted</td>
+                    <td class="optionName" title="说明"
+                        data-content="系统删除">系统删除</td>
+                </tr>
+            </table>
+
+            <h3>推流地址使用方式</h3>
+            <ul>
+                <li>推流地址拼接逻辑: rtmp://{addr}/{path}/{name}
+                </li>
+                <li>
+                    推流地址拼接示例：
+                    rtmp://60.55.12.165:1936/push/56fb2c60fc724870aeb6877547c558f7?ts=1404458188&token=47b0e7f6c69c627af5e16d4c40a1f7b1
+                </li>
+            </ul>
+
+
+            <h3>截图地址使用方式</h3>
+            <ul>
+                <li>
+                    视频列表接口的screenshot只返回相对路径，如：
+                    <p>/c4/3d/c43d58fda4f2e9025575dfa155001819/1.jpg</p>
+                </li>
+                <li>
+                    拼接后的完整路径为:
+                    <p>http://v.img.pplive.cn/cp160/c4/3d/c43d58fda4f2e9025575dfa155001819/1.jpg</p>
+                </li>
+                <li>
+                    cp160为显示尺寸,格式如下:
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>类型</th>
+                            <th>宽</th>
+                            <th>高</th>
+                            <th>前缀</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>resize</td>
+                            <td>80</td>
+                            <td>60</td>
+                            <td>sp80</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>100</td>
+                            <td>75</td>
+                            <td>sp100</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>120</td>
+                            <td>90</td>
+                            <td>sp120,sp,as</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>128</td>
+                            <td>96</td>
+                            <td>sp128,P0-P9</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>160</td>
+                            <td>120</td>
+                            <td>sp160</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>200</td>
+                            <td>150</td>
+                            <td>sp200</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>240</td>
+                            <td>180</td>
+                            <td>sp240</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>300</td>
+                            <td>225</td>
+                            <td>sp300</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>crop</td>
+                            <td>160</td>
+                            <td>120</td>
+                            <td>cp160</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>120</td>
+                            <td>90</td>
+                            <td>cp120</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>120</td>
+                            <td>160</td>
+                            <td>sp121</td>
+                            <td>竖版截图</td>
+                        </tr>
+                        <tr>
+                            <td>crop 16:9</td>
+                            <td>160</td>
+                            <td>90</td>
+                            <td>cp16</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>120</td>
+                            <td>67</td>
+                            <td>cp12</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>100</td>
+                            <td>56</td>
+                            <td>cp10</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>200</td>
+                            <td>122</td>
+                            <td>cp20</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>308</td>
+                            <td>173</td>
+                            <td>cp308</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
         </div><!--/span-->
     </div><!--/row-->
 
